@@ -12,7 +12,7 @@ namespace OCS_Test_Assignment.Models
         {
             Id = id;
             Status = "New";
-            Created = DateTime.Now;
+            Created = DateTime.Now.ToUniversalTime();
             Lines = orderDetails;
         }
         public bool ChangeStatus(string newStatus)
