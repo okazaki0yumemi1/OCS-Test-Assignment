@@ -2,7 +2,7 @@
 
 namespace OCS_Test_Assignment.Models
 {
-    public class Order
+    public class Order : Entity
     {
         private Guid Id { get; }
         private string Status { get; set; }

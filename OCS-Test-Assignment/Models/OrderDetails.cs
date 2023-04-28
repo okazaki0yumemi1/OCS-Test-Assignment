@@ -1,6 +1,6 @@
 ﻿namespace OCS_Test_Assignment.Models
 {
-    public class OrderDetails
+    public class OrderDetails : Entity
     {
         Guid Id { get; set; }
         int Quantity { get; set; }
