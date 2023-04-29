@@ -5,9 +5,9 @@ namespace OCS_Test_Assignment.Controllers
     public interface IController<T> where T : Models.Entity
     {
         Task<IActionResult> Create(T obj);
-        Task<IActionResult> Delete(int Id);
+        Task<IActionResult> Delete(Guid Id);
         Task<IActionResult> GetAll();
-        Task<IActionResult> GetByID(int Id);
-        Task<IActionResult> Update(int Id, T obj);
+        Task<IActionResult> GetByID(Guid Id);
+        Task<IActionResult> Update(Guid Id, T obj);
     }
 }
