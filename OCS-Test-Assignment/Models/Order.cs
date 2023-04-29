@@ -6,7 +6,7 @@ namespace OCS_Test_Assignment.Models
     {
         private Guid Id { get; }
         private string Status { get; set; }
-        private DateTime Created { get; set; }
+        private DateTime Created { get; }
         IEnumerable<OrderDetails> Lines { get; set; }
         public Order(Guid id, IEnumerable<OrderDetails> orderDetails)
         {
@@ -52,5 +52,6 @@ namespace OCS_Test_Assignment.Models
             //DateTime is assigned automatically but still needs to be checked.
             return true;
         }
+        public 
     }
 }

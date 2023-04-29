@@ -2,8 +2,8 @@
 {
     public class OrderDetails : Entity
     {
-        Guid Id { get; set; }
-        int Quantity { get; set; }
+        Guid Id { get; }
+        int Quantity { get; }
         public OrderDetails(Guid id, int quantity)
         {
             Id = id;
