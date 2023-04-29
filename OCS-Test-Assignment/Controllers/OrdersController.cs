@@ -16,7 +16,7 @@ namespace OCS_Test_Assignment.Controllers
         {
             throw new NotImplementedException();
         }
-        [HttpDelete("api/orders")]
+        [HttpDelete("api/orders/{orderId}")]
         public Task<IActionResult> Delete(int Id)
         {
             throw new NotImplementedException();
@@ -26,12 +26,12 @@ namespace OCS_Test_Assignment.Controllers
         {
             throw new NotImplementedException();
         }
-        [HttpGet("api/orders")]
+        [HttpGet("api/orders/{orderId}")]
         public Task<IActionResult> GetByID(int Id)
         {
             throw new NotImplementedException();
         }
-        [HttpPut("api/orders")]
+        [HttpPut("api/orders/{orderId}")]
         public Task<IActionResult> Update(int Id, Order obj)
         {
             throw new NotImplementedException();

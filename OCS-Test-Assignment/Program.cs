@@ -1,9 +1,15 @@
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using OCS_Test_Assignment.Persistence;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddDbContext<DatabaseContext>(options =>
+        options.UseNpgsql(builder.Configuration.GetConnectionString("OrdersDatabase")));
 
 var app = builder.Build();
 
