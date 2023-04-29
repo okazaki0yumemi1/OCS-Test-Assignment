@@ -9,5 +9,11 @@
             Id = id;
             Quantity = quantity;
         }
+        public bool IsValid()
+        {
+            //Checking for invalid quantity:
+            if (Quantity <= 0) return false;
+            else return true;
+        }
     }
 }
