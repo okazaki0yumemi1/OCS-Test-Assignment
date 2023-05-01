@@ -1,5 +1,9 @@
-﻿using Microsoft.Extensions.Caching.Memory;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Microsoft.Extensions.Caching.Memory;
 using OCS_Test_Assignment.Models;
+using System.Collections.Immutable;
+using System.Net;
 
 namespace OCS_Test_Assignment.Persistence
 {
@@ -10,29 +14,34 @@ namespace OCS_Test_Assignment.Persistence
         {
             _dbContext = dbContext;
         }
-        public Task<bool> CreateAsync(Order obj)
+        public async Task<bool> CreateAsync(Order obj)
+        {
+            await _dbContext.Orders.AddAsync(obj);
+            var createdOrders = await _dbContext.SaveChangesAsync();
+            return (createdOrders > 0);
+        }
+
+        public async Task<bool> DeleteAsync(Guid Id)
         {
             throw new NotImplementedException();
         }
 
-        public Task<bool> DeleteAsync(Guid Id)
+        public async Task<List<Order>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            return await _dbContext.Orders.ToListAsync();
         }
 
-        public Task<List<Order>> GetAllAsync()
+        public async Task<Order> GetByIDAsync(Guid Id)
         {
-            throw new NotImplementedException();
+            var order = await _dbContext.Orders.SingleOrDefaultAsync(x => x.GetOrderGuid() == Id);
+            return order;
         }
 
-        public Task<Order> GetByIDAsync(Guid Id)
+        public async Task<bool> UpdateAsync(Order obj)
         {
-            throw new NotImplementedException();
-        }
-
-        public Task<bool> UpdateAsync(Order obj)
-        {
-            throw new NotImplementedException();
+            _dbContext.Orders.Update(obj);
+            var updatedOrders = await _dbContext.SaveChangesAsync();
+            return (updatedOrders > 0);
         }
     }
 }

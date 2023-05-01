@@ -1,16 +1,19 @@
 ﻿using Microsoft.Net.Http.Headers;
+using System.Text.Json.Serialization;
 
 namespace OCS_Test_Assignment.Models
 {
     public class Order : Entity
     {
-        Guid Id { get; }
+        Guid Id { get; set; }
         string Status { get; set; }
         DateTime Created { get; }
         IEnumerable<OrderDetails> Lines { get; set; }
-        public Order(Guid id, IEnumerable<OrderDetails> orderDetails)
+        public Order() { }
+        public Order(string id, IEnumerable<OrderDetails> orderDetails)
         {
-            Id = id;
+            Guid.TryParse(id, out Guid result);
+            Id = result;
             Status = "New";
             Created = DateTime.Now.ToUniversalTime();
             Lines = orderDetails;
@@ -81,6 +84,10 @@ namespace OCS_Test_Assignment.Models
                 return true;
             }
             else return false;
+        }
+        public Guid GetOrderGuid()
+        {
+            return Id;
         }
     }
 }

@@ -1,12 +1,16 @@
-﻿namespace OCS_Test_Assignment.Models
+﻿using System.Text.Json.Serialization;
+
+namespace OCS_Test_Assignment.Models
 {
     public class OrderDetails : Entity
     {
-        public Guid Id { get; set; }
-        public int Qty { get; set; } //Quantity column id Db 
-        public OrderDetails(Guid id, int quantity)
+        public Guid Id { get; private set; }
+        public int Qty { get; private set; } //Quantity column id Db 
+        public OrderDetails() { }
+        public OrderDetails(string id, int quantity)
         {
-            Id = id;
+            Guid.TryParse(id, out Guid result);
+            Id = result;
             Qty = quantity;
         }
         public bool IsValid()

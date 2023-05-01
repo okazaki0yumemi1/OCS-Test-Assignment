@@ -1,15 +1,23 @@
 ﻿using System.ComponentModel.DataAnnotations;
+//using System.Text.Json;
+//using System.Text.Json.Serialization;
+using Newtonsoft.Json;
 
 namespace OCS_Test_Assignment.Models
 {
+    [JsonObject(MemberSerialization.OptIn)]
     public class OrderDetailsDTO : OrderDetails
     {
-        public OrderDetailsDTO(Guid id, int quantity) : base(id, quantity)
+        public OrderDetailsDTO()
         {
         }
         [Required]
-        public Guid id { get; set; }
+        [JsonProperty("id")]
+        public string detailsId { get; set; } //"new" because of this bug: https://github.com/dotnet/runtime/issues/30964
         [Required]
-        public int qty { get; set; }
+        [JsonProperty("qty")]
+        public int quantity { get; set; }
+        [JsonIgnore]
+        Guid Id { get; set; }
     }
 }

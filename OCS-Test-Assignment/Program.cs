@@ -3,10 +3,10 @@ using Microsoft.Extensions.Configuration;
 using OCS_Test_Assignment.Persistence;
 
 
-
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+//builder.Services.AddControllers();
 builder.Services.AddMvcCore()
     .AddApiExplorer();
 builder.Services.AddRazorPages();
@@ -14,6 +14,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<DatabaseContext>(options =>
         options.UseNpgsql(builder.Configuration.GetConnectionString("OrdersDatabase")));
+builder.Services.AddScoped<OrdersDbOperations>();
 
 var app = builder.Build();
 
@@ -31,9 +32,11 @@ app.UseSwaggerUI();
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
-app.UseRouting();
-
 app.UseAuthorization();
+
+app.UseRouting();
+app.UseEndpoints(endpoints => endpoints.MapControllers());
+
 
 app.MapRazorPages();
 
