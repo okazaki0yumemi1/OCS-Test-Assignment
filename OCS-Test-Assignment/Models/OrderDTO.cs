@@ -5,17 +5,17 @@ using System.ComponentModel.DataAnnotations;
 
 namespace OCS_Test_Assignment.Models
 {
-    [JsonObject(MemberSerialization.OptIn)]
-    public class OrderDTO : Order
+    //[JsonObject(MemberSerialization.OptIn)]
+    public class OrderDTO : Entity
     {
-        public OrderDTO()
-        {
-        }
-        [Required]
+        [JsonConstructor]
+        public OrderDTO() { }
         [JsonProperty("id")]
-        public string id { get; set; }
+        public string orderId { get; set; }
         [JsonProperty("status")]
         public string status { get; set; }
         public IEnumerable<OrderDetailsDTO>  lines {get; set;}
+        //[JsonIgnore]
+        //Guid Id { get; set; }
     }
 }

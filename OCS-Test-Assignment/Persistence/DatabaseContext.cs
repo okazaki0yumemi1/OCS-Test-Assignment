@@ -10,8 +10,8 @@ namespace OCS_Test_Assignment.Persistence
 
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-            => optionsBuilder.UseNpgsql("Host=myDatabase;Database=my_db;Username=my_user;Password=my_pw");
+            => optionsBuilder.UseNpgsql("Server=localhost;Database=OSCOrders;Username=postgres;Password=9014356789;");
     public DbSet<Order> Orders { get; set; }
-        public DbSet<OrderDetails> OrderDetailss { get; set; }
+    public DbSet<OrderDetails> OrderDetails { get; set; }
     }
 }

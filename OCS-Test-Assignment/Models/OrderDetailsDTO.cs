@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace OCS_Test_Assignment.Models
 {
-    [JsonObject(MemberSerialization.OptIn)]
+    //[JsonObject(MemberSerialization.OptIn)]
     public class OrderDetailsDTO : OrderDetails
     {
         public OrderDetailsDTO()
@@ -14,6 +14,12 @@ namespace OCS_Test_Assignment.Models
         new public string Id { get; set; }
         [Required]
         [JsonProperty("qty")]
-        public int Qty { get; set; }
+        new public int Qty { get; set; }
+        public bool IsValid()
+        {
+            //Checking for invalid quantity:
+            if (this.Qty <= 0) return false;
+            else return true;
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Microsoft.Net.Http.Headers;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Net.Http.Headers;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 //using System.Text.Json.Serialization;
@@ -9,13 +10,13 @@ namespace OCS_Test_Assignment.Models
     public class Order : Entity
     {
         [Key, Column("order_id")]
-        Guid Id { get; set; }
+        public Guid Id { get; private set; }
         [Column("order_status")]
         string Status { get; set; }
         [Column("order_creation_date")]
         DateTime Created { get; }
         [ForeignKey("OrderDetails")]
-        IEnumerable<OrderDetails> Lines { get; set; }
+        public IEnumerable<OrderDetails> Lines { get; set; }
         public Order() { }
         public Order(string id, IEnumerable<OrderDetails> orderDetails)
         {

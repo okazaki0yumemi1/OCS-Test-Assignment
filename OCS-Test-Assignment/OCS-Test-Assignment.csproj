@@ -8,6 +8,24 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20230501151534_InitialCreate.cs" />
+    <Compile Remove="Migrations\20230501151534_InitialCreate.Designer.cs" />
+    <Compile Remove="Migrations\20230501154424_Initial.cs" />
+    <Compile Remove="Migrations\20230501154424_Initial.Designer.cs" />
+    <Compile Remove="Migrations\20230501154738_InitialPgsql.cs" />
+    <Compile Remove="Migrations\20230501154738_InitialPgsql.Designer.cs" />
+    <Compile Remove="Migrations\20230501175403_TestM.cs" />
+    <Compile Remove="Migrations\20230501175403_TestM.Designer.cs" />
+    <Compile Remove="Migrations\20230501175556_TestM2.cs" />
+    <Compile Remove="Migrations\20230501175556_TestM2.Designer.cs" />
+    <Compile Remove="Migrations\DatabaseContextModelSnapshot.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="libman.json" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.5" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.5">
       <PrivateAssets>all</PrivateAssets>
@@ -16,6 +34,11 @@
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="7.0.4" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Newtonsoft" Version="6.5.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Migrations\" />
   </ItemGroup>
 
 </Project>

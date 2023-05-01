@@ -17,8 +17,8 @@ namespace OCS_Test_Assignment.Controllers
         public async Task<IActionResult> Create([FromBody] OrderDTO obj)
         {
             if (obj.lines.Count() == 0) return BadRequest("A problem occured in parsing \"lines\" in payload.");
-            if (!Guid.TryParse(obj.id, out Guid result)) return BadRequest("Unable to parse Guid.");
-            var newOrder = await this.GetByID(obj.id);
+            if (!Guid.TryParse(obj.orderId, out Guid result)) return BadRequest("Unable to parse Guid.");
+            var newOrder = await _dbOperations.GetByIDAsync(result);
             if (newOrder != null) return Conflict("Order with given Id already exists.");
             else
             {
@@ -28,7 +28,7 @@ namespace OCS_Test_Assignment.Controllers
                     if (line.IsValid() == false)
                         return BadRequest($"Incorrect data in \"lines\". \n id:{line.Id.ToString()}, qty:{line.Qty.ToString()}"); 
                 };
-                var newObj = new Order(obj.id, obj.lines);
+                var newObj = new Order(obj.orderId, obj.lines);
                 //I could just use (newOrder.DataIsValid() == true), but that is extra work for CPU and will not give error details:
                 /*
                 var newObj = new Order(obj.id, obj.lines);
@@ -37,7 +37,7 @@ namespace OCS_Test_Assignment.Controllers
                 if (await _dbOperations.CreateAsync(newObj) == true)
                 {
                     var baseUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host.ToUriComponent()}";
-                    var fullUrl = baseUrl + $"/api/orders/{obj.id}";
+                    var fullUrl = baseUrl + $"/api/orders/{obj.orderId}";
                     return Created(fullUrl, newObj);
                 }
                 else throw new ApplicationException("Error occured in writing new Order obj to database: no orders written to database");

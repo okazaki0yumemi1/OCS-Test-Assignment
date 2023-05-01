@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using OCS_Test_Assignment.Persistence;
+using Swashbuckle.AspNetCore.Newtonsoft;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,6 +15,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<DatabaseContext>(options =>
         options.UseNpgsql(builder.Configuration.GetConnectionString("OrdersDatabase")));
+builder.Services.AddSwaggerGenNewtonsoftSupport();
 builder.Services.AddScoped<OrdersDbOperations>();
 
 var app = builder.Build();
@@ -35,6 +37,7 @@ app.UseStaticFiles();
 app.UseAuthorization();
 
 app.UseRouting();
+app.MapControllers();
 app.UseEndpoints(endpoints => endpoints.MapControllers());
 
 
