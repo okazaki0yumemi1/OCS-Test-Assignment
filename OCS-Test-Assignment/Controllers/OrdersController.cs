@@ -80,6 +80,11 @@ namespace OCS_Test_Assignment.Controllers
                 oldOrder.ChangeStatus(obj.GetStatus());
                 //PUT order and PATCH are different though, the line above should be changed if PUT will be changed to PATCH.
             }
+            if (obj.Lines is null)
+            {
+                _dbOperations.UpdateAsync(oldOrder);
+                return Ok(oldOrder);
+            }
             if (obj.Lines.Count() != 0)
             {
                 foreach (var line in obj.Lines)

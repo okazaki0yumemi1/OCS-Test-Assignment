@@ -14,7 +14,7 @@ namespace OCS_Test_Assignment.Models
         public Guid Id { get; set; }
         public string Status { get; set; }
         public DateTime Created { get; }
-        public List<OrderDetails> Lines { get; set; }
+        public List<OrderDetails>? Lines { get; set; }
         public Order() 
         {
             Status = "New";
