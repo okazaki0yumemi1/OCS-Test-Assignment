@@ -8,6 +8,6 @@ namespace OCS_Test_Assignment.Controllers
         Task<IActionResult> Delete(Guid Id);
         Task<IActionResult> GetAll();
         Task<IActionResult> GetByID(Guid Id);
-        Task<IActionResult> Update(Guid Id, T obj);
+        Task<IActionResult> Update(Guid Id, T obj);//Guid Id, T obj);
     }
 }

@@ -4,9 +4,9 @@ namespace OCS_Test_Assignment.Models
 {
     public class Order : Entity
     {
-        private Guid Id { get; }
-        private string Status { get; set; }
-        private DateTime Created { get; }
+        Guid Id { get; }
+        string Status { get; set; }
+        DateTime Created { get; }
         IEnumerable<OrderDetails> Lines { get; set; }
         public Order(Guid id, IEnumerable<OrderDetails> orderDetails)
         {
@@ -52,6 +52,35 @@ namespace OCS_Test_Assignment.Models
             //DateTime is assigned automatically but still needs to be checked.
             return true;
         }
-        public 
+        public bool CanBeUpdated()
+        {
+            //Orders can be updated (HTTP PUT) if they have certain statuses: "New" and "Pending payment":
+            if ((this.Status == "New") || (this.Status == "Pending payment")) return true;
+            else return false;
+        }
+        public bool CanBeDeleted()
+        {
+            //Orders can be deleted if they have statuses "New" and "Pendidng payment", plus "Paid":
+            if ((this.Status == "Paid") || (this.CanBeUpdated() == true)) return true;
+            else return false;
+        }
+        public bool AddOrUpdateLine(OrderDetails newLine)
+        {
+            //IEnumerable<T> is immutable!
+            if (newLine.IsValid() == false) return false;
+            if (this.Lines.Contains(newLine) == true) return true;
+            var oldLines = this.Lines.Where(x => x.Id != newLine.Id);
+            //If (...) is true, then there was no line with newLine.id -> add newLine.
+            //If (...) is false, then there are either one item with newLine.id or many:
+            if (oldLines.Count() == this.Lines.Count()) { this.Lines.Append(newLine); return true; }
+            //If (...) is true, then there is one line that will be updated.
+            //If (...) is false, then there are >=2 lines with same id's, and something is wrong:
+            else if ((this.Lines.Count() - oldLines.Count()) == 1)
+            {
+                this.Lines = oldLines.Append(newLine);
+                return true;
+            }
+            else return false;
+        }
     }
 }

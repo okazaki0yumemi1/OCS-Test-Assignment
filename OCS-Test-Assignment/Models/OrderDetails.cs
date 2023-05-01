@@ -2,17 +2,17 @@
 {
     public class OrderDetails : Entity
     {
-        Guid Id { get; }
-        int Quantity { get; }
+        public Guid Id { get; set; }
+        public int Qty { get; set; } //Quantity column id Db 
         public OrderDetails(Guid id, int quantity)
         {
             Id = id;
-            Quantity = quantity;
+            Qty = quantity;
         }
         public bool IsValid()
         {
             //Checking for invalid quantity:
-            if (Quantity <= 0) return false;
+            if (Qty <= 0) return false;
             else return true;
         }
     }
