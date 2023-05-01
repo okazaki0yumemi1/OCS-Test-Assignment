@@ -17,23 +17,31 @@ namespace OCS_Test_Assignment.Persistence
         public async Task<bool> CreateAsync(Order obj)
         {
             await _dbContext.Orders.AddAsync(obj);
+            await _dbContext.OrderDetails.AddRangeAsync(obj.Lines);
             var createdOrders = await _dbContext.SaveChangesAsync();
             return (createdOrders > 0);
         }
 
         public async Task<bool> DeleteAsync(Guid Id)
         {
-            throw new NotImplementedException();
+            var exist = await GetByIDAsync(Id);
+            if (exist == null) return false;
+            _dbContext.Orders.Remove(exist);
+            _dbContext.OrderDetails.RemoveRange(exist.Lines);
+            var deletedClients = await _dbContext.SaveChangesAsync();
+            if (deletedClients > 1) return true;
+            else return false;
         }
 
         public async Task<List<Order>> GetAllAsync()
         {
-            return await _dbContext.Orders.ToListAsync();
+            return await _dbContext.Orders.Include(od => od.Lines).ToListAsync();
         }
 
         public async Task<Order> GetByIDAsync(Guid Id)
         {
-            var order = await _dbContext.Orders.FindAsync(Id); //SingleOrDefaultAsync(x => x.GetOrderGuid() == Id);
+            var order = await _dbContext.Orders.Include(od => od.Lines).SingleOrDefaultAsync(x => x.Id == Id);
+            //var lines = await _dbContext.OrderDetails.AllAsync()
             return order;
         }
 

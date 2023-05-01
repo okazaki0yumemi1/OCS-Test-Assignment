@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 namespace OCS_Test_Assignment.Models
 {
     //[JsonObject(MemberSerialization.OptIn)]
-    public class OrderDetailsDTO : OrderDetails
+    public class OrderDetailsDTO
     {
         public OrderDetailsDTO()
         {

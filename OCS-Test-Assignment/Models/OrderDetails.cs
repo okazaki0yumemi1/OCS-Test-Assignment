@@ -1,5 +1,6 @@
 ﻿//using System.Text.Json.Serialization;
 
+using Newtonsoft.Json;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -8,10 +9,11 @@ namespace OCS_Test_Assignment.Models
     [Table("OrderDetails")]
     public class OrderDetails : Entity
     {
-        [Column("detail_id"), Key]
-        public Guid Id { get; private set; }
-        [Column("quantity")]
-        public int Qty { get; private set; } //Quantity column id Db 
+        [Key]
+        public Guid Id { get; set; }
+        public int Qty { get; set; }
+        //[ForeignKey("Orders"), JsonIgnore]
+        //public Order ParentOrder { get; set; }
         public OrderDetails() { }
         public OrderDetails(string id, int quantity)
         {

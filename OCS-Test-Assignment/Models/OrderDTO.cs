@@ -6,16 +6,15 @@ using System.ComponentModel.DataAnnotations;
 namespace OCS_Test_Assignment.Models
 {
     //[JsonObject(MemberSerialization.OptIn)]
-    public class OrderDTO : Entity
+    public class OrderDTO 
     {
         [JsonConstructor]
         public OrderDTO() { }
+        [Required]
         [JsonProperty("id")]
         public string orderId { get; set; }
         [JsonProperty("status")]
         public string status { get; set; }
         public IEnumerable<OrderDetailsDTO>  lines {get; set;}
-        //[JsonIgnore]
-        //Guid Id { get; set; }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Net.Http.Headers;
+using Newtonsoft.Json;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 //using System.Text.Json.Serialization;
@@ -9,16 +10,17 @@ namespace OCS_Test_Assignment.Models
     [Table("Orders")]
     public class Order : Entity
     {
-        [Key, Column("order_id")]
-        public Guid Id { get; private set; }
-        [Column("order_status")]
-        string Status { get; set; }
-        [Column("order_creation_date")]
-        DateTime Created { get; }
-        [ForeignKey("OrderDetails")]
-        public IEnumerable<OrderDetails> Lines { get; set; }
-        public Order() { }
-        public Order(string id, IEnumerable<OrderDetails> orderDetails)
+        [Key]
+        public Guid Id { get; set; }
+        public string Status { get; set; }
+        public DateTime Created { get; }
+        public List<OrderDetails> Lines { get; set; }
+        public Order() 
+        {
+            Status = "New";
+            Created = DateTime.Now.ToUniversalTime();
+        }
+        public Order(string id, List<OrderDetails> orderDetails)
         {
             Guid.TryParse(id, out Guid result);
             Id = result;
@@ -75,27 +77,25 @@ namespace OCS_Test_Assignment.Models
             if ((this.Status == "Paid") || (this.CanBeUpdated() == true)) return true;
             else return false;
         }
-        public bool AddOrUpdateLine(OrderDetails newLine)
+        //public bool AddOrUpdateLine(OrderDetails newLine)
+        //{
+        //    if (newLine.IsValid() == false) return false;
+        //    if (this.Lines.Where(x => x.Id == newLine.Id)) return true;
+        //    //If (...) is true, then there was no line with newLine.id -> add newLine.
+        //    //If (...) is false, then there are either one item with newLine.id or many:
+        //    if (oldLines.Count() == this.Lines.Count()) { this.Lines.Append(newLine); return true; }
+        //    //If (...) is true, then there is one line that will be updated.
+        //    //If (...) is false, then there are >=2 lines with same id's, and something is wrong:
+        //    else if ((this.Lines.Count() - oldLines.Count()) == 1)
+        //    {
+        //        this.Lines.Add(newLine);
+        //        return true;
+        //    }
+        //    else return false;
+        //}
+        public string GetStatus()
         {
-            //IEnumerable<T> is immutable!
-            if (newLine.IsValid() == false) return false;
-            if (this.Lines.Contains(newLine) == true) return true;
-            var oldLines = this.Lines.Where(x => x.Id != newLine.Id);
-            //If (...) is true, then there was no line with newLine.id -> add newLine.
-            //If (...) is false, then there are either one item with newLine.id or many:
-            if (oldLines.Count() == this.Lines.Count()) { this.Lines.Append(newLine); return true; }
-            //If (...) is true, then there is one line that will be updated.
-            //If (...) is false, then there are >=2 lines with same id's, and something is wrong:
-            else if ((this.Lines.Count() - oldLines.Count()) == 1)
-            {
-                this.Lines = oldLines.Append(newLine);
-                return true;
-            }
-            else return false;
-        }
-        public Guid GetOrderGuid()
-        {
-            return Id;
+            return Status;
         }
     }
 }
