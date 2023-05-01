@@ -33,7 +33,7 @@ namespace OCS_Test_Assignment.Persistence
 
         public async Task<Order> GetByIDAsync(Guid Id)
         {
-            var order = await _dbContext.Orders.SingleOrDefaultAsync(x => x.GetOrderGuid() == Id);
+            var order = await _dbContext.Orders.FindAsync(Id); //SingleOrDefaultAsync(x => x.GetOrderGuid() == Id);
             return order;
         }
 

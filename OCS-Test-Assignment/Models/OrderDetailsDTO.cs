@@ -1,6 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-//using System.Text.Json;
-//using System.Text.Json.Serialization;
 using Newtonsoft.Json;
 
 namespace OCS_Test_Assignment.Models
@@ -13,11 +11,9 @@ namespace OCS_Test_Assignment.Models
         }
         [Required]
         [JsonProperty("id")]
-        public string detailsId { get; set; } //"new" because of this bug: https://github.com/dotnet/runtime/issues/30964
+        new public string Id { get; set; }
         [Required]
         [JsonProperty("qty")]
-        public int quantity { get; set; }
-        [JsonIgnore]
-        Guid Id { get; set; }
+        public int Qty { get; set; }
     }
 }

@@ -1,13 +1,20 @@
 ﻿using Microsoft.Net.Http.Headers;
-using System.Text.Json.Serialization;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+//using System.Text.Json.Serialization;
 
 namespace OCS_Test_Assignment.Models
 {
+    [Table("Orders")]
     public class Order : Entity
     {
+        [Key, Column("order_id")]
         Guid Id { get; set; }
+        [Column("order_status")]
         string Status { get; set; }
+        [Column("order_creation_date")]
         DateTime Created { get; }
+        [ForeignKey("OrderDetails")]
         IEnumerable<OrderDetails> Lines { get; set; }
         public Order() { }
         public Order(string id, IEnumerable<OrderDetails> orderDetails)

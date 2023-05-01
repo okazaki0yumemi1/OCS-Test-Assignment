@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OCS_Test_Assignment.Models;
 using OCS_Test_Assignment.Persistence;
-using System.Net;
+
 
 namespace OCS_Test_Assignment.Controllers
 {
@@ -26,7 +26,7 @@ namespace OCS_Test_Assignment.Controllers
                 foreach (var line in obj.lines) 
                 {
                     if (line.IsValid() == false)
-                        return BadRequest($"Incorrect data in \"lines\". \n id:{line.detailsId.ToString()}, qty:{line.quantity.ToString()}"); 
+                        return BadRequest($"Incorrect data in \"lines\". \n id:{line.Id.ToString()}, qty:{line.Qty.ToString()}"); 
                 };
                 var newObj = new Order(obj.id, obj.lines);
                 //I could just use (newOrder.DataIsValid() == true), but that is extra work for CPU and will not give error details:
