@@ -8,7 +8,7 @@ namespace OCS_Test_Assignment.Persistence
     {
         public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options)
         {
-
+            Database.EnsureCreated();
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
             => optionsBuilder.UseNpgsql("Server=localhost;Database=OrdersDb;Username=postgres;Password=9014356789;");
